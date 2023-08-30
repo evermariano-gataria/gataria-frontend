@@ -28,8 +28,15 @@
         runs-on: self-hosted
         needs: build-dev
         steps:
-        - name: Step 1
-          run: env
+        - uses: actions/checkout@v3
+        - name: Use Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '18'
+        - name: Install dependencies
+          run: npm install
+        -  name: run command
+           run: npm test
       deploy-dev:
         name: Deploy dev
         if: contains (github.ref, 'dev')
