@@ -14,7 +14,7 @@
         - name: Clone repository
           uses: actions/checkout@v3
         - name: Docker login
-          run: docker login u ${{ vars.DOCKER_LOGIN }} p ${{ secrets.DOCKER_PASS }}
+          run: docker login u ${{ vars.DDOCKER_USERNAME }} p ${{ secrets.DOCKER_PASSWORD }}
         - name: Docker build
           run: docker build -t evermariano/gataria-frontend:dev$GITHUB_SHA . --build-arg REACT_APP_STAGE=dev
         - name: docker push
