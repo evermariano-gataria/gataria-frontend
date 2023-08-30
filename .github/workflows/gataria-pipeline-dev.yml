@@ -19,7 +19,7 @@
             username: ${{ secrets.DOCKER_USERNAME }}
             password: ${{ secrets.DOCKER_PASSWORD }}
         - name: Docker build
-          run: docker build -t evermariano/gataria-frontend:dev$GITHUB_SHA . --build-arg REACT_APP_STAGE=dev$GITHUB_SHA
+          run: docker build -t evermariano/gataria-frontend:dev$GITHUB_SHA . --build-arg REACT_APP_STAGE=dev
         - name: docker push
           run: docker push evermariano/gataria-frontend:dev$GITHUB_SHA
       test-dev:
