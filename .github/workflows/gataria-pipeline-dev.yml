@@ -49,7 +49,7 @@
             password: ${{ secrets.DOCKER_PASSWORD }}
         steps:
         - name: Add ChartMuseum Repo
-          run: helm repo add gataria-charts http://chartmuseum:32200
+          run: helm repo add gataria-charts http://chartmuseum:8080
         - name: Helm update repo
           run: helm repo update
         - name: Deploy dev
