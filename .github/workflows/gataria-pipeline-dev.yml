@@ -53,4 +53,4 @@
         - name: Helm update repo
           run: helm repo update
         - name: Deploy dev
-          run: helm upgrade gataria-frontend gataria-charts/gataria-frontend -n dev --set image.tag=$GITHUB_SHA || helm install gataria-frontend gataria-charts/gataria-frontend -n dev --set image.tag=$GITHUB_SHA
+          run: helm install gataria-frontend gataria-charts/gataria-frontend -n dev --set image.tag=$GITHUB_SHA
