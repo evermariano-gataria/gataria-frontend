@@ -1,13 +1,14 @@
 name: Gataria CI/CD Prod
 on:
-  push:
+  release:
     branches:
       - main
+    types:
+      - published
 
 jobs:
   build-prod:
     name: Build Prod
-    if: contains(github.ref, 'main') 
     runs-on: self-hosted
     steps:
       - name: Clone repository
@@ -24,7 +25,6 @@ jobs:
 
   test-prod:
     name: Test prod
-    if: contains(github.ref, 'main') 
     runs-on: self-hosted
     needs: build-prod
     steps:
@@ -40,7 +40,6 @@ jobs:
 
   deploy-prod:
     name: Deploy prod
-    if: contains(github.ref, 'main') 
     runs-on: self-hosted
     needs: test-prod
     container:
