@@ -19,9 +19,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Docker build
-        run: docker build -t evermariano/gataria-frontend:prod$GITHUB_SHA . --build-arg REACT_APP_STAGE=prod
+        run: docker build -t evermariano/gataria-frontend:${GITHUB_REF##*/} . --build-arg REACT_APP_STAGE=prod
       - name: docker push
-        run: docker push evermariano/gataria-frontend:prod$GITHUB_SHA
+        run: docker push evermariano/gataria-frontend:${GITHUB_REF##*/}
 
   test-prod:
     name: Test prod
@@ -53,4 +53,4 @@ jobs:
       - name: Helm update repo
         run: helm repo update
       - name: Deploy main
-        run: helm upgrade gataria-frontend gataria-charts/gataria-frontend -n prod --set "image.tag=prod$GITHUB_SHA" --set "ingress.hosts[0].host=gataria.example" --set "ingress.hosts[0].paths[0].path=/" --set "ingress.hosts[0].paths[0].pathType=Prefix" --set "autoscaling.enable=true" || helm install gataria-frontend gataria-charts/gataria-frontend -n prod --set "image.tag=prod$GITHUB_SHA" --set "ingress.hosts[0].host=gataria.example" --set "ingress.hosts[0].paths[0].path=/" --set "ingress.hosts[0].paths[0].pathType=Prefix" --set "autoscaling.enable=true"
+        run: helm upgrade gataria-frontend gataria-charts/gataria-frontend -n prod --set "image.tag=${GITHUB_REF##*/}" --set "ingress.hosts[0].host=gataria.example" --set "ingress.hosts[0].paths[0].path=/" --set "ingress.hosts[0].paths[0].pathType=Prefix" --set "autoscaling.enable=true" || helm install gataria-frontend gataria-charts/gataria-frontend -n prod --set "image.tag=${GITHUB_REF##*/}" --set "ingress.hosts[0].host=gataria.example" --set "ingress.hosts[0].paths[0].path=/" --set "ingress.hosts[0].paths[0].pathType=Prefix" --set "autoscaling.enable=true"
